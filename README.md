@@ -37,5 +37,5 @@ Aprendizagem Baseada em Problemas (PBL), com foco no desenvolvimento de competê
 O repositório é utilizado como instrumento de avaliação das competências desenvolvidas ao longo da disciplina.
 
 ## gmail utilizado por mim para teste 
-(Lucas.oliveira@teste.com) senha 1234
+(Lucas.oliveira@teste.com) senha 
 (https://local-eats-unisenac.vercel.app/static/index.html)
