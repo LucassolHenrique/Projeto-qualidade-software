@@ -7,20 +7,45 @@
 Este repositório reúne as atividades desenvolvidas na disciplina de Qualidade de Software, realizadas por meio da metodologia PBL (Problem-Based Learning — Aprendizagem Baseada em Problemas).
 
 ## 📚 Organização
-- `docs/` → Atividades realizadas ao longo das aulas
-  - `atividade-01/` → Primeira atividade
-  - `atividade-02/` → Segunda atividade
-  - `atividade-03/` → Terceira atividade
-  - `entregas-finais/` → Entregas finais do semestre
+
+### 📁 Estrutura de Soluções (PBL 1 a 5)
+- `docs/` → Documentação técnica das atividades e PBLs
+  - `atividade-01/aula-01-atributos-qualidade.md` → **PBL 1:** Mapeamento de problemas do Local Eats com atributos ISO/IEC 25000
+  - `atividade-02/aula-03-diagnostico-qa.md` → **PBL 2:** Diagnóstico, definição de papéis (Dev, QA, Product Owner) e anúncios de vagas
+  - `atividade-03/aula-04-estrategia-inicial-testes.md` → **PBL 3:** Estratégia de testes, funcionalidades prioritárias e pirâmide de testes
+  - `atividade-04/aula-05-testes-funcionais-estruturais.md` → **PBL 4:** Análise de testes caixa-preta vs caixa-branca aplicada à busca de restaurantes
+  - `atividade-05/aula-06-planejamento-testes.md` → **PBL 5:** Plano completo de testes com 5 casos de teste executados, resultados reais e análise de bugs
+  - `entregas-finais/` → Entrauges finais do semestre
+
+### 🎯 Artefatos Complementares
 - `artefatos/` → Diagramas, relatórios e evidências
-  - `diagramas/` → Diagramas técnicos e de modelagem
-  - `relatorios/` → Relatórios das atividades
-  - `evidencias/` → Evidências de aprendizagem
+  - `diagramas/` → Diagramas UML, fluxogramas e modelagem
+  - `relatorios/` → Relatórios consolidados de qualidade
+  - `evidencias/` → Prints de execução de testes e evidências de bugs
 - `src/` → Código-fonte (quando aplicável)
 - `referencias/` → Materiais de apoio e bibliografia
 
-## 📦 Entregas
-As entregas parciais e finais estão organizadas por atividade na pasta `docs/`.
+### 📋 Resumo das Entregas
+| PBL | Ficheiro | Foco |
+|:---:|:---|:---|
+| **1** | `aula-01-atributos-qualidade.md` | Diagnóstico ISO 25000 |
+| **2** | `aula-03-diagnostico-qa.md` | Papéis, práticas e vagas |
+| **3** | `aula-04-estrategia-inicial-testes.md` | Estratégia de testes |
+| **4** | `aula-05-testes-funcionais-estruturais.md` | Caixa-preta vs Caixa-branca |
+| **5** | `aula-06-planejamento-testes.md` | Casos de teste reais e execução |
+
+## 📦 Entregas Realizadas
+
+### PBL 1-5: Qualidade de Software – LocalEats
+Cronologia completa de análise, planeamento e execução de testes para startup de delivery de comida:
+
+- **PBL 1 (Diagnóstico):** Mapeamento de 7 problemas críticos com ISO/IEC 25000
+- **PBL 2 (Governança):** Estruturação de equipa (Dev, QA, PO) + anúncios de vagas
+- **PBL 3 (Estratégia):** Definição de níveis de teste e prioridades
+- **PBL 4 (Teoria):** Análise comparativa de abordagens de teste
+- **PBL 5 (Prática):** Execução real de 5 casos de teste com 3 falhas críticas documentadas
+
+Todos os ficheiros estão organizados por atividade na pasta `docs/` com nomenclatura clara.
 
 ## 🧩 Metodologia
 Aprendizagem Baseada em Problemas (PBL), com foco no desenvolvimento de competências em qualidade de software.
