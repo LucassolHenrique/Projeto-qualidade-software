@@ -1,80 +1,75 @@
-![alt text](image.png)# Planejamento e Execução de Testes – LocalEats
+# Planejamento e Execução de Testes – LocalEats
 
 ## 1. Plano de Testes
-* **Objetivo:** Validar a funcionalidade de busca de restaurantes do sistema LocalEats, garantindo que o utilizador consiga encontrar opções através de texto livre e filtros.
+* **Objetivo:** Validar a integridade, funcionalidade e usabilidade do motor de busca e filtragem do sistema LocalEats.
 * **Escopo:**
-  * *O que será testado:* Campo de busca por texto livre, retorno de resultados e mensagens de estado vazio.
-  * *O que não será testado:* Fluxo de login, favoritar restaurantes ou a página de detalhes do restaurante.
-* **Funcionalidades selecionadas:** Busca de restaurantes na página inicial.
-* **Estratégia de testes:** Testes funcionais manuais (Caixa-preta) focados na usabilidade e validação de entradas (Boundary Value Analysis / Equivalence Partitioning).
-* **Responsáveis:** Analista de QA (Planeamento, execução e registo das evidências).
+    * **O que será testado:** Campo de busca por texto livre, botões de categorias e retorno de resultados no grid.
+    * **O que não será testado:** Processamento de pagamentos, login de usuários e edição de perfil de restaurante.
+* **Funcionalidades selecionadas:** Busca de restaurantes e filtros de categoria (Italiana, Japonesa, etc.).
+* **Estratégia de testes:** Abordagem de teste funcional de caixa-preta, focada na perspectiva do usuário final, utilizando técnicas de Particionamento de Equivalência para validar diferentes tipos de inputs.
+* **Responsáveis:** Equipe de QA (Consultoria Externa).
 
----
+## 2. Casos de Teste (Sintaxe Gherkin)
 
-## 2. Casos de Teste
-
-**CT01 - Busca por termo parcial minúsculo (Cenário de Sucesso)**
-* **Pré-condição:** Estar na página principal com a lista completa de restaurantes carregada.
+**CT01 - Busca por termo parcial (Sucesso)**
+* **ID:** CT01
+* **Título:** Busca por termo inicial em letras minúsculas.
+* **Pré-condição:** O sistema deve estar online e com restaurantes cadastrados no banco de dados.
 * **Passos:**
-  * Dado que estou na página principal do LocalEats
-  * E que o campo "Buscar por culinária ou localização" está visível
-  * Quando eu preencho o campo com o valor "re"
-  * E clico no botão "Buscar"
-  * Então o sistema deve exibir todos os restaurantes que contêm "re" no nome ou descrição.
+    1. Acessar a página inicial.
+    2. No campo de busca, digitar "re".
+    3. Clicar em "Buscar".
+* **Resultado esperado:** O sistema deve listar todos os restaurantes que contenham "re" no título (ex: Restaurante Sabor X).
 
-**CT02 - Busca por termo parcial com letra maiúscula (Cenário de Sucesso)**
-* **Pré-condição:** Estar na página principal.
+**CT02 - Busca Case-Sensitive (Sucesso/Happy Path)**
+* **ID:** CT02
+* **Título:** Busca ignorando diferenciação entre maiúsculas e minúsculas.
 * **Passos:**
-  * Dado que estou na página principal do LocalEats
-  * Quando eu preencho o campo de busca com o valor "Res"
-  * E clico no botão "Buscar"
-  * Então o sistema deve exibir a mesma lista de restaurantes correspondentes ao termo, independentemente de ser maiúscula ou minúscula (case-insensitive).
+    1. No campo de busca, digitar "Res" (com R maiúsculo).
+    2. Clicar em "Buscar".
+* **Resultado esperado:** O sistema deve retornar os mesmos resultados da busca por "res" (em minúsculo), sendo indiferente à capitalização.
 
-**CT03 - Filtro por categoria específica (Cenário de Sucesso)**
-* **Pré-condição:** Estar na página principal.
+**CT03 - Seleção de Categoria (Sucesso)**
+* **ID:** CT03
+* **Título:** Filtragem por culinária específica através de botões.
 * **Passos:**
-  * Dado que estou na página principal do LocalEats
-  * Quando eu clico no botão de filtro "Japonesa"
-  * Então o sistema deve exibir apenas os restaurantes com a tag correspondente (ex: Restaurante Sabor 1 e Sabor 2).
+    1. Clicar na categoria "Japonesa".
+* **Resultado esperado:** Apenas restaurantes com a tag "Japonesa" devem permanecer visíveis no grid.
 
-**CT04 - Busca por restaurante inexistente (Cenário de Erro)**
-* **Pré-condição:** Estar na página principal.
+**CT04 - Busca por termo inexistente (Erro)**
+* **ID:** CT04
+* **Título:** Validação de feedback para termo não encontrado.
 * **Passos:**
-  * Dado que estou na página principal do LocalEats
-  * Quando eu preencho o campo de busca com o valor "Churrascaria Inexistente123"
-  * E clico no botão "Buscar"
-  * Então o sistema deve exibir a mensagem amigável "Nenhum restaurante encontrado." sem quebrar a interface.
+    1. Digitar um termo aleatório que não corresponda a nenhum restaurante (ex: "xyz123").
+    2. Clicar em "Buscar".
+* **Resultado esperado:** Exibição da mensagem "Nenhum restaurante encontrado".
 
-**CT05 - Busca com caracteres especiais (Cenário de Erro)**
-* **Pré-condição:** Estar na página principal.
+**CT05 - Busca com campo vazio (Erro)**
+* **ID:** CT05
+* **Título:** Comportamento do sistema ao buscar sem dados de entrada.
 * **Passos:**
-  * Dado que estou na página principal do LocalEats
-  * Quando eu preencho o campo de busca com o valor "@#$%"
-  * E clico no botão "Buscar"
-  * Então o sistema não deve executar scripts maliciosos e deve retornar a mensagem "Nenhum restaurante encontrado."
-
----
+    1. Limpar o campo de busca.
+    2. Clicar em "Buscar".
+* **Resultado esperado:** O sistema deve manter a lista completa ou solicitar o preenchimento do campo.
 
 ## 3. Execução dos Testes
 
-| ID | Resultado | Evidência / Observação |
+| ID | Resultado | Evidência (Descrição/Print) |
 | :--- | :--- | :--- |
-| **CT01** | ❌ Falhou | O sistema realizou a busca, mas limitou drasticamente o retorno. Exibiu apenas 2 restaurantes (Sabor 4 e Sabor 12), ocultando outras opções válidas disponíveis no catálogo. |
-| **CT02** | ❌ Falhou | Ao buscar por "Res", a aplicação apresentou a mensagem "Nenhum restaurante encontrado". O campo é sensível a maiúsculas/minúsculas (*case-sensitive*), o que prejudica a usabilidade. |
-| **CT03** | ✅ Passou | Filtros de categorias (ex: Japonesa) funcionam e atualizam o grid corretamente. |
-| **CT04** | ✅ Passou | A mensagem de "Nenhum restaurante encontrado." aparece corretamente. |
-| **CT05** | ✅ Passou | O sistema lida com caracteres especiais sem quebrar, retornando o estado vazio. |
-
----
+| **CT01** | **FALHOU** | **[Evidência: image_evd_1.png]** Ao buscar por "re", o sistema retornou apenas 2 resultados (Sabor 4 e 12), ignorando outros restaurantes que deveriam estar na lista. |
+| **CT02** | **FALHOU** | **[Evidência: image_evd_2.png]** Ao utilizar o termo "Res", o sistema falhou em encontrar os registros, comprovando que a busca é *case-sensitive* (sensível a maiúsculas). |
+| **CT03** | **PASSOU** | **[Evidência: image_evd_3.png]** O sistema filtra corretamente os restaurantes ao clicar nas categorias disponíveis na interface. |
+| **CT04** | **PASSOU** | O sistema apresenta a mensagem de "Nenhum restaurante encontrado" corretamente para termos inexistentes. |
+| **CT05** | **FALHOU** | O sistema não apresenta uma validação de campo obrigatório ao clicar em buscar vazio. |
 
 ## 4. Análise dos Resultados
-* **Quantos testes foram executados?** 5 casos de teste funcionais.
-* **Quantos passaram? Quantos falharam?** 3 passaram e 2 falharam criticamente.
-* **Quais os principais problemas encontrados?** O motor de busca possui falhas graves na validação e recuperação de dados. A *query* na base de dados é *case-sensitive*, penalizando utilizadores que começam a escrever com letra maiúscula (falha de UX/Usabilidade). Além disso, a busca parcial está inconsistente, limitando o retorno dos itens na grelha e escondendo restaurantes válidos.
+* **Testes Executados:** 5.
+* **Passaram:** 2 | **Falharam:** 3.
+* **Principais problemas encontrados:** Foram detectados defeitos críticos na lógica de busca (Back-end). O sistema falha ao tratar letras maiúsculas, o que é uma má prática de usabilidade e funcionalidade. Além disso, há uma inconsistência na recuperação de dados, onde a busca parcial não retorna a totalidade dos registros esperados.
+
+## 5. Reflexão no contexto do LocalEats
+O plano de testes foi fundamental para identificar que o sistema, apesar de visualmente funcional, possui falhas estruturais na comunicação com o banco de dados. Durante a execução, percebemos que o erro de *case-sensitivity* é um impeditivo real para o usuário comum, que pode usar a capitalização automática do celular e não encontrar o que procura. Como melhoria, sugerimos a normalização dos dados de entrada para minúsculo antes da consulta SQL e a revisão das queries de busca parcial.
 
 ---
 
-## 5. Reflexão no contexto do LocalEats
-* **O plano de testes ajudou a organizar melhor os testes?** Sim, permitiu sair de uma análise genérica ("o sistema está com erro") para uma métrica acionável ("o sistema falha especificamente no input com iniciais maiúsculas").
-* **Algum problema só foi percebido durante a execução?** Sim. O bug do *case-sensitive* (CT02) apenas foi validado ao realizar a variação de massa de dados na prática, simulando a ação de um teclado mobile que muitas vezes capitaliza a primeira letra automaticamente.
-* **O que melhorariam no processo de testes?** Para evitar que este tipo de bug regresse (*regressão*), implementaríamos testes automatizados de integração logo na API de busca, garantindo que a regra de negócio converte sempre a *string* para `toLowerCase()` antes de consultar a base de dados.
+**Dica técnica de QA:** Como você notou esse erro de maiúsculas/minúsculas, no seu commit você pode descrever isso como um Bug Report. Isso mostra pro professor que você tem a visão de "corrigir na raiz", que é o que você faz no dia a dia com Apex e SQL.
